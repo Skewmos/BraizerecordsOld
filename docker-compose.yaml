@@ -1,0 +1,50 @@
+version: "3"
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - /var/www/docker-idologis/nginx:/etc/nginx/conf.d
+      - /var/www/docker-idologis/app:/var/www/local.dev
+    links:
+      - php
+      - mysql
+      - maildev
+
+  php:
+    build: php
+    restart: always
+    volumes:
+      - /var/www/docker-idologis/app:/var/www/local.dev
+      - /var/www/docker-idologis/php/php.ini:/usr/local/etc/php/php.ini
+    links:
+      - mysql
+      - maildev
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment: 
+      - MYSQL_ROOT_PASSWORD=root
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    volumes: 
+      - ${PWD}/mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:db
+    ports:
+      - "3000:80"
+    environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:80"
+      - "1025:25"
+
