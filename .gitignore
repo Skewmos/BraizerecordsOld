@@ -81,3 +81,5 @@ mysql/
 
 #environement
 .env
+
+.idea
