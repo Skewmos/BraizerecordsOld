@@ -5,8 +5,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - /var/www/docker-idologis/nginx:/etc/nginx/conf.d
-      - /var/www/docker-idologis/app:/var/www/local.dev
+      - /var/www/docker-braizerecords/nginx:/etc/nginx/conf.d
+      - /var/www/docker-braizerecords/Braizerecords:/var/www/Braizerecords
     links:
       - php
       - mysql
@@ -16,8 +16,8 @@ services:
     build: php
     restart: always
     volumes:
-      - /var/www/docker-idologis/app:/var/www/local.dev
-      - /var/www/docker-idologis/php/php.ini:/usr/local/etc/php/php.ini
+      - /var/www/docker-braizerecords/Braizerecords:/var/www/Braizerecords
+      - /var/www/docker-braizerecords/php/php.ini:/usr/local/etc/php/php.ini
     links:
       - mysql
       - maildev

@@ -37,6 +37,6 @@ RUN docker-php-ext-install iconv json mbstring opcache intl bz2 mysqli pdo_mysql
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 RUN docker-php-ext-install gd
 
-WORKDIR /var/www/local.dev
+WORKDIR /var/www/Braizerecords
 
 CMD ["php-fpm"]
